@@ -1,6 +1,12 @@
+import {motion } from "motion/react"
 function Confirm({sendAmount, receiveAmount, sendCurrency, receiveCurrency, handleConfirmSwap, setConfirmationStep}: any) {
     return (
-        <div className=" w-screen h-full overflow-y-hidden absolute bg-black bg-opacity-70 z-20 absolut flex flex-col items-center justify-center gap-4">
+
+        <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        className=" w-screen h-full overflow-y-hidden absolute bg-black bg-opacity-70 z-20 absolut flex flex-col items-center justify-center gap-4">
             <div className="overflow-y-hidden backdrop-blur-md bg-purple-600 bg-opacity-20 absolute rounded-xl p-5 flex flex-col items-center  gap-4">
             <p className="text-pink-200">
             You are about to send {sendAmount} {sendCurrency} and receive {receiveAmount.toFixed(2)}{' '}
@@ -23,7 +29,7 @@ function Confirm({sendAmount, receiveAmount, sendCurrency, receiveCurrency, hand
             </button>
             </div>
         </div>
-      </div>
+      </motion.div>
     )
 };
 

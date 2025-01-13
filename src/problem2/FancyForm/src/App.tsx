@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import Confirm from './Confirm';
+import { AnimatePresence, motion } from "motion/react"
 type PriceData = {
   currency: string;
   date: string;
@@ -116,7 +117,9 @@ function App() {
     <div className="h-screen w-screen bg-purple-950 flex justify-center items-center flex-col overflow-hidden shadow-purple-800 shadow-[inset_0_0px_200px_rgba(0,0,0,0)]">
       <div className="absolute top-4 right-4 w-[500px] h-[500px] rounded-full bg-purple-600 blur-[170px]"></div>
       <div className="absolute bottom-4 left-4 w-[500px] h-[500px] rounded-full bg-purple-600 blur-[170px]"></div>
-      <form
+      <motion.form
+        initial={{ opacity: 0, scale: 0.5, y: 100 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
         className="flex w-[700px] bg-purple-900 py-20 relative rounded-xl justify-center items-center flex-col px-28 gap-4 shadow-purple-700 shadow-[inset_0_0px_30px_rgba(0,0,0,0.6)]"
         onSubmit={(e) => e.preventDefault()}
       >
@@ -126,10 +129,10 @@ function App() {
         <input
           type="text"
           list="currency-options"
-          placeholder="Currency"
+          placeholder="Name"
           value={sendCurrency}
           onChange={(e) => setSendCurrency(e.target.value)}
-          className="text-xl text-pink-200 w-20 text-end absolute right-2 font-mono z-10 bg-white bg-opacity-15 rounded-xl "
+          className="text-xl text-pink-200 w-20 text-end absolute right-2 font-mono z-10 bg-white bg-opacity-15 rounded-xl focus:outline-none focus:shadow-[0_0px_10px_rgba(0,0,0,0.6)] focus:shadow-purple-400"
         />
         {sendCurrencyIcon && (
           <img
@@ -154,16 +157,15 @@ function App() {
           />
         </div>
       </div>
-
       <div className="relative flex flex-grow justify-center items-center w-full flex-col py-5 bg-white rounded-xl bg-opacity-15 backdrop-blur-xl">
         <h1 className="text-3xl text-center font-thin text-pink-200 font-sans">Amount to Receive</h1>
         <input
           type="text"
           list="currency-options"
-          placeholder="Currency Name"
+          placeholder="Name"
           value={receiveCurrency}
           onChange={(e) => setReceiveCurrency(e.target.value)}
-          className="text-xl text-pink-200 w-20 text-end absolute right-2 font-mono z-10 bg-white bg-opacity-15 rounded-xl "
+          className="text-xl text-pink-200 w-20 text-end absolute right-2 font-mono z-10 bg-white bg-opacity-15 rounded-xl  focus:outline-none focus:shadow-[0_0px_10px_rgba(0,0,0,0.6)] focus:shadow-purple-400"
         />
         {receiveCurrencyIcon && (
           <img
@@ -188,20 +190,25 @@ function App() {
         </div>
       </div>
         {error && <p className="text-red-500 text-sm">{error}</p>}
-
+        <AnimatePresence>
         {!confirmationStep && !swapConfirmed && (
-          <button
+          <motion.button
+          initial={{scale: 1}}
+          whileHover={{scale: 1.1}}
+          whileTap={{scale: 0.9}}
+          exit={{scale: 0, opacity: 0}}
             type="button"
             onClick={handleCalculation}
             className="bg-white text-purple-950 px-4 py-2 rounded absolute bottom-2" 
           >
             CONFIRM SWAP
-          </button>
+          </motion.button>
         )}
-
-      </form>
-
+        </AnimatePresence>
+      </motion.form>
+      <AnimatePresence>
       {confirmationStep && (
+  
         <Confirm
           sendAmount={sendAmount}
           receiveAmount={receiveAmount}
@@ -210,7 +217,9 @@ function App() {
           handleConfirmSwap={handleConfirmSwap}
           setConfirmationStep={setConfirmationStep}
         />
+     
         )}
+   </AnimatePresence>
       {swapConfirmed && (
         <div className="mt-4 p-4 bg-green-200 text-green-800 rounded flex flex-col items-center gap-4">
           <p>Swap confirmed!</p>
