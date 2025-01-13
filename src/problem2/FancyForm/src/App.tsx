@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Confirm from './Confirm';
 import { AnimatePresence, motion } from "motion/react"
+import Spinner from './Spinner';
 type PriceData = {
   currency: string;
   date: string;
@@ -20,7 +21,7 @@ function App() {
   const [error, setError] = useState<string>('');
   const [confirmationStep, setConfirmationStep] = useState<boolean>(false);
   const [swapConfirmed, setSwapConfirmed] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   useEffect(() => {
     const fetchPrices = async () => {
       try {
@@ -83,9 +84,14 @@ function App() {
   };
 
   const handleConfirmSwap = () => {
+    setIsLoading(true);
     setConfirmationStep(false);
-    setSwapConfirmed(true);
+    setTimeout(() => {
+      setSwapConfirmed(true);
+      setIsLoading(false);
+    }, 3000);
   };
+  
 
   const handleNewSwap = () => {
     setSwapConfirmed(false);
@@ -210,7 +216,6 @@ function App() {
       </motion.form>
       <AnimatePresence>
       {confirmationStep && (
-  
         <Confirm
           sendAmount={sendAmount}
           receiveAmount={receiveAmount}
@@ -219,8 +224,8 @@ function App() {
           handleConfirmSwap={handleConfirmSwap}
           setConfirmationStep={setConfirmationStep}
         />
-     
         )}
+        {isLoading && (<Spinner />)}
    </AnimatePresence>
       {swapConfirmed && (
         <div className="mt-4 p-4 bg-green-200 text-green-800 rounded flex flex-col items-center gap-4">
