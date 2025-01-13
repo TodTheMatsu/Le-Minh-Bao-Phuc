@@ -131,6 +131,7 @@ function App() {
           list="currency-options"
           placeholder="Name"
           value={sendCurrency}
+          autoComplete='off'
           onChange={(e) => setSendCurrency(e.target.value)}
           className="text-xl text-pink-200 w-20 text-end absolute right-2 font-mono z-10 bg-white bg-opacity-15 rounded-xl focus:outline-none focus:shadow-[0_0px_10px_rgba(0,0,0,0.6)] focus:shadow-purple-400"
         />
@@ -163,6 +164,7 @@ function App() {
           type="text"
           list="currency-options"
           placeholder="Name"
+          autoComplete='off'
           value={receiveCurrency}
           onChange={(e) => setReceiveCurrency(e.target.value)}
           className="text-xl text-pink-200 w-20 text-end absolute right-2 font-mono z-10 bg-white bg-opacity-15 rounded-xl  focus:outline-none focus:shadow-[0_0px_10px_rgba(0,0,0,0.6)] focus:shadow-purple-400"
