@@ -1,16 +1,4 @@
-import React from 'react';
 import { motion } from 'framer-motion';
-
-const spinnerVariants = {
-  rotate: {
-    rotate: 360,
-    transition: {
-      duration: 1,
-      ease: 'linear',
-      repeat: Infinity,
-    },
-  },
-};
 
 const Spinner = () => {
   return (
