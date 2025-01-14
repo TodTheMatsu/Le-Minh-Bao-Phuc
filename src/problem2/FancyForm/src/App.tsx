@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import Confirm from './Confirm';
 import { AnimatePresence, motion } from "motion/react"
 import Spinner from './Spinner';
+
 type PriceData = {
   currency: string;
-  date: string;
   price: number;
 };
 
 type Prices = Record<string, number>;
 const MAX_SEND_AMOUNT = 9999999;
+
 function App() {
   const [prices, setPrices] = useState<Prices>({});
   const [sendCurrency, setSendCurrency] = useState<string>('');
@@ -120,7 +121,7 @@ function App() {
     }
     setSendAmount(value);
   };
-  
+
   return (
     <div className="h-screen w-screen bg-purple-950 flex justify-center items-center flex-col overflow-hidden shadow-purple-800 shadow-[inset_0_0px_200px_rgba(0,0,0,0)]">
       <div className="absolute top-4 right-4 w-[500px] h-[500px] rounded-full bg-purple-600 blur-[170px]"></div>
